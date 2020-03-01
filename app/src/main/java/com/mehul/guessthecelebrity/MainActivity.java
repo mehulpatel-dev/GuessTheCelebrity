@@ -1,5 +1,11 @@
 package com.mehul.guessthecelebrity;
-
+/*
+    Title: Guess The Celebrity
+    Author: Mehul Patel
+    Date: February 29, 2020
+    Description: Guessing game where the top 100 celebrities are used based on the list from
+    posh24 website and the user has to select the correct name corresponding with the picture
+ */
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.graphics.Bitmap;
@@ -25,12 +31,15 @@ import java.util.regex.Pattern;
 
 public class MainActivity extends AppCompatActivity {
 
+    //array lists to hold the celebirity url (from the src in the html code from the website) and celebrities names
     ArrayList<String> celebURL= new ArrayList<String>();
     ArrayList<String> celebName = new ArrayList<String>();
+
 
     int chosenCeleb;
     int correctAnswerLocation = 0;
     int incorrectAnswerLocation = 0;
+
     String[] answers = new String[4];
 
     ImageView celebImageView;
@@ -39,6 +48,7 @@ public class MainActivity extends AppCompatActivity {
     Button button2;
     Button button3;
 
+    //class that extends AsyncTask to download the contents of the website
     public class DownloadTask extends AsyncTask <String, Void, String>{
         @Override
         protected String doInBackground(String... strings) {
@@ -64,6 +74,7 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    //class that extends AsyncTask to download the image contents as Bitmap from the website
     public class ImageDownloader extends AsyncTask <String, Void, Bitmap>{
         @Override
         protected Bitmap doInBackground(String... strings) {
@@ -94,6 +105,7 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    //onClick method for when the button is selected
     public void celebChosen(View view){
         if(view.getTag().toString().equals(Integer.toString(correctAnswerLocation))){
             Toast.makeText(getApplicationContext(), "Correct!", Toast.LENGTH_LONG).show();
@@ -104,6 +116,7 @@ public class MainActivity extends AppCompatActivity {
         generateCeleb();
     }
 
+    //method to create/generate the question
     public void generateCeleb(){
         Random rnum = new Random();
         Bitmap celebImg = null;
